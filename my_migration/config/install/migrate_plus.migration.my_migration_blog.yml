@@ -1,0 +1,42 @@
+id: my_migration_blog
+label: Taxonomy terms
+migration_tags:
+  - Drupal 7
+migration_group: mygroup
+source:
+  plugin: my_migration_blog
+  node_type: blog
+process:
+  type:
+    plugin: default_value
+    default_value: blog
+  title: title
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "und"
+  uid:
+    plugin: default_value
+    default_value: 1
+  status: status
+  created: created
+  changed: changed
+  promote: promote
+  sticky: sticky
+  body: 
+    plugin: iterator
+    source: body
+    process:
+      value: value
+      format: 
+        plugin: default_value
+        default_value: basic_html
+  field_publication_source: field_source
+  field_location: field_location
+  field_tags:
+    plugin: migration
+    migration: my_migration_tags
+    source: field_tags_tid
+destination:
+  plugin: entity:node
+migration_dependencies: {}
